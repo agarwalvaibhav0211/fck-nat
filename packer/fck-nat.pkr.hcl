@@ -13,22 +13,22 @@ variable "version" {
 }
 
 variable "ami_regions" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "ami_users" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "ami_groups" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
 variable "snapshot_groups" {
-  type = list(string)
+  type    = list(string)
   default = []
 }
 
@@ -71,6 +71,10 @@ variable "jool_version" {
   default = "4.1.7"
 }
 
+variable "ami_prefix" {
+
+}
+
 source "amazon-ebs" "fck-nat" {
   ami_name                  = "fck-nat-${var.ami_prefix}${var.flavor}-${var.virtualization_type}-${var.version}-${formatdate("YYYYMMDD", timestamp())}-${var.architecture}-ebs"
   ami_virtualization_type   = var.virtualization_type
@@ -98,7 +102,7 @@ source "amazon-ebs" "fck-nat" {
 }
 
 build {
-  name = "fck-nat"
+  name    = "fck-nat"
   sources = ["source.amazon-ebs.fck-nat"]
 
   # Install updates
@@ -123,9 +127,9 @@ build {
       "sudo yum remove gcc make elfutils-libelf-devel kernel-devel libnl3-devel iptables-devel -y"
     ]
   }
-  
+
   provisioner "file" {
-    source = "build/fck-nat-${var.version}-any.rpm"
+    source      = "build/fck-nat-${var.version}-any.rpm"
     destination = "/tmp/fck-nat-${var.version}-any.rpm"
   }
 
