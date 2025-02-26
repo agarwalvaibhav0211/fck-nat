@@ -1,4 +1,4 @@
-VERSION := 1.3.0
+VERSION := 1.4.0
 
 package: package-rpm
 
@@ -14,6 +14,9 @@ al2023-ami-arm64: package-rpm
 
 al2023-ami-x86: package-rpm
 	packer build -var 'version=$(VERSION)' -var-file="packer/fck-nat-x86_64.pkrvars.hcl" -var-file="packer/fck-nat-al2023.pkrvars.hcl" $(regions_file) packer/fck-nat.pkr.hcl
+
+al2023-ami-arm64-nat64: package-rpm
+	packer build -var 'version=$(VERSION)' -var-file="packer/fck-nat-arm64.pkrvars.hcl" -var-file="packer/fck-nat-al2023.pkrvars.hcl" -var-file="packer/fck-nat-public-mumbai.pkrvars.hcl" packer/fck-nat.pkr.hcl
 
 al2023-ami: al2023-ami-arm64 al2023-ami-x86
 

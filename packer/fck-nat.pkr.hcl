@@ -76,7 +76,7 @@ variable "ami_prefix" {
 }
 
 source "amazon-ebs" "fck-nat" {
-  ami_name                  = "fck-nat-${var.ami_prefix}${var.flavor}-${var.virtualization_type}-${var.version}-${formatdate("YYYYMMDD", timestamp())}-${var.architecture}-ebs"
+  ami_name                  = "fck-nat-${var.ami_prefix}${var.flavor}-${var.virtualization_type}-${var.version}-${formatdate("YYYYMMDDmm", timestamp())}-${var.architecture}-ebs"
   ami_virtualization_type   = var.virtualization_type
   ami_regions               = var.ami_regions
   ami_users                 = var.ami_users
@@ -87,6 +87,12 @@ source "amazon-ebs" "fck-nat" {
   ssh_username              = var.ssh_username
   ssh_clear_authorized_keys = true
   temporary_key_pair_type   = "ed25519"
+  launch_block_device_mappings {
+    device_name = "/dev/xvda"
+    volume_size = 10
+    volume_type = "gp3"
+    delete_on_termination = true
+  }
   source_ami_filter {
     filters = {
       virtualization-type = var.virtualization_type

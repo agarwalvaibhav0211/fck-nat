@@ -1,1 +1,1 @@
-packer build -var 'version=1.4-nat' -var-file="packer/fck-nat-arm64.pkrvars.hcl" -var-file="packer/fck-nat-al2023.pkrvars.hcl" -var-file="packer/fck-nat-public-mumbai.pkrvars.hcl" packer/fck-nat.pkr.hcl
+packer build -var 'version=1.4.0-nat' -var-file="packer/fck-nat-arm64.pkrvars.hcl" -var-file="packer/fck-nat-al2023.pkrvars.hcl" -var-file="packer/fck-nat-public-mumbai.pkrvars.hcl" packer/fck-nat.pkr.hcl
